@@ -1,0 +1,12 @@
+.custom-button {
+    cursor: pointer;
+    border: 1px solid var(--orange);
+    border-radius: 10px;
+    place-items: center;
+    padding: .9em 4.5em;
+    align-items: center;
+    img{
+        width: 20px;
+        height: 18px;
+    }
+}

@@ -1,0 +1,120 @@
+.primary-navigation {
+    a {
+        text-decoration: none;
+        color: var(--very-dark-grayish);
+        padding: var(--underline-gap, 2rem) 0;
+    }
+
+    .active:not(.sneakers) {
+        color: var(--very-dark-blue);
+        border-bottom: 3px solid var(--orange);
+    }
+
+}
+
+
+
+.secondary-navigation .active {
+    border-bottom: none;
+
+    img {
+        border: 2px solid var(--orange);
+        border-radius: 50%;
+    }
+}
+
+.secondary-navigation,
+.primary-navigation {
+    --gap: 2rem;
+    align-items: center;
+
+    svg {
+        cursor: pointer;
+
+    }
+}
+
+.navigation {
+    justify-content: space-between;
+    border-bottom: 2px solid hsl(220 14 75 / .2);
+    border-radius: 2px;
+    img {
+        width: 40px;
+    }
+}
+
+.mobile-nav-toggle {
+    display: none;
+}
+
+@media (max-width:35rem) {
+  
+    .navigation {
+        padding-inline: .8rem;
+    }
+
+    .mobile-menu {
+        --underline-gap: 0;
+        position: fixed;
+        z-index: 1000;
+        inset: 0 30% 0 0;
+        background: var(--white);
+        list-style: none;
+        padding: min(20rem, 15vh) 2rem;
+        margin: 0;
+        flex-direction: column;
+        font-weight: 700;
+        color: var(--very-dark-blue);
+    }
+
+    .overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 500;
+        cursor: pointer;
+    }
+
+    .mobile-nav-toggle {
+        display: block;
+        position: relative;
+        z-index: 2000;
+        background: transparent;
+        border: 0;
+        width: 1.5rem;
+        aspect-ratio: 1;
+        cursor: pointer;
+
+    }
+
+
+
+
+    .secondary-navigation,
+    .primary-navigation {
+        --gap: 1rem;
+    }
+
+    .primary-navigation.underline-indicators>.active {
+        border: 0;
+    }
+
+    .primary-navigation {
+        flex-direction: row-reverse;
+    }
+
+    .secondary-navigation {
+        a {
+            padding-right: 0 !important;
+        }
+
+        img {
+            width: 35px;
+        }
+    }
+}
