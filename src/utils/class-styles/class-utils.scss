@@ -18,9 +18,9 @@
     max-width: 80rem;
 }
 
-@media (max-width:1250px) {
+@media (max-width:1350px) {
     .container {
-        max-width: 60rem;
+        max-width: 65rem;
     }
 
     .flow>*:where(:not(:first-child)) {
@@ -28,15 +28,12 @@
     }
 }
 
-@media (min-width:45rem) {
-    .container {
-        max-width: 70rem;
-    }
-    
-    .flow>*:where(:not(:first-child)) {
-        margin-top: 1.7rem;
-    }
+
+
+.flow>*:where(:not(:first-child)) {
+    margin-top: 1.7rem;
 }
+
 
 .d-block {
     display: block;
@@ -99,7 +96,7 @@
 
 @media (max-width:550px) {
     .container {
-        padding-inline:0;
+        padding-inline: 0;
         max-width: 50rem;
     }
 }

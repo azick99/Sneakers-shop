@@ -36,7 +36,7 @@ const Navigation = () => {
     })
   return (
     <>
-      <nav className="navigation flex">
+      <nav className="navigation flex container">
         <div className="primary-navigation flex">
           <NavLink to="/" className="sneakers">
             <SneakersLogo />

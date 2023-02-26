@@ -11,7 +11,7 @@ const CartIcon = ({ handleToggle, toggle }) => {
 
   return (
     <div className="cart-icon">
-      {toggle.isDropdownOpen ? (
+      {!toggle.isDropdownOpen ? (
         <img src={ShoppingIcon} onClick={isCartOpen} alt="shopping-icon" />
       ) : (
         <img src={ShoppingIconDark} onClick={isCartOpen} alt="shopping-icon" />

@@ -4,77 +4,74 @@ import Button from '../../components/button/Button'
 import { products } from '../../data/imageData'
 import { ReactComponent as Plus } from '../../assets/images/icon-plus.svg'
 import { ReactComponent as Minus } from '../../assets/images/icon-minus.svg'
+import { ReactComponent as Close } from '../../assets/images/icon-close.svg'
 import CartIcon from '../../assets/images/icon-cart-white.svg'
+import ImageModal from '../../components/image-modal/ImageModal'
+import SwipeButton from '../../components/swipe-btn/SwipeButton'
 function HomePage() {
   const [index, setIndex] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   let productImage = products[index]
-  let imageClass = 'active-image'
+  const handleModal = () => setIsModalOpen(!isModalOpen)
   return (
-    <div className="home">
-      <div className="grid-container grid-container--home">
-        <div className="image-container grid">
-          <div className="main-image">
-            <img src={productImage.image} alt={productImage.name} />
-          </div>
-          <div className="thubnail-container flex">
-            {products.map((product) => {
-              return (
-                <div
-                  className={
-                    product.id === index ? 'thubnail-image active-div' : 'thubnail-image'
-                  }
-                  key={product.id}
-                  onClick={() => {
-                    setIndex(product.id)
-                  }}
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className={product.id === index ? imageClass : ''}
-                  />
-                </div>
-              )
-            })}
-          </div>
+    <>
+      {isModalOpen && (
+        <div className="modal">
+          <Close onClick={handleModal} className='close'/>
+          <SwipeButton />
+          <ImageModal
+            index={index}
+            setIndex={setIndex}
+            productImage={productImage}
+            modalMode="modal-mode"
+          />
         </div>
-
-        <div className="mobile-container flow">
-          <h1 className="text-orange fs-400  text-bold">
-            SNEAKER COMPANY
-            <span className="title fs-700 text-dark text-bold d-block ">
-              Fall Limited Edition Sneakers
-            </span>
-          </h1>
-          <p>
-            These low-profile sneakers are your perfect casual wear companion.
-            Featuring a durable rubber outer sole, they’ll withstand everything
-            the weather can offer.
-          </p>
-          <div>
-            <h2 className="price fs-500 text-bold text-dark flex ">
-              <span> $125.00</span>
-              <span className="discount fs-400 text-orange">50%</span>
-            </h2>
-            <p className="old-price fs-400">$250.00</p>
-          </div>
-          <div className="add-container flex">
-            <div className="count-container flex">
-              <div>
-                <Minus />
-              </div>
-              <span className=" count text-bold text-dark">0</span>
-              <div>
-                <Plus />
-              </div>
+      )}
+      <main className="container slide-left">
+        <div className="grid-container grid-container--home">
+          <ImageModal
+            index={index}
+            setIndex={setIndex}
+            productImage={productImage}
+            handleModal={handleModal}
+          />
+          <div className="mobile-container flow">
+            <h1 className="text-orange fs-400  text-bold">
+              SNEAKER COMPANY
+              <span className="title fs-700 text-dark text-bold d-block ">
+                Fall Limited Edition Sneakers
+              </span>
+            </h1>
+            <p>
+              These low-profile sneakers are your perfect casual wear companion.
+              Featuring a durable rubber outer sole, they’ll withstand
+              everything the weather can offer.
+            </p>
+            <div>
+              <h2 className="price fs-500 text-bold text-dark flex ">
+                <span> ${productImage.price}.00</span>
+                <span className="discount fs-400 text-orange">50%</span>
+              </h2>
+              <p className="old-price fs-400">$250.00</p>
             </div>
-            <Button>
-              <img src={CartIcon} alt="cart-icon" /> Add to cart
-            </Button>
+            <div className="add-container flex">
+              <div className="count-container flex">
+                <div>
+                  <Minus />
+                </div>
+                <span className=" count text-bold text-dark">0</span>
+                <div>
+                  <Plus />
+                </div>
+              </div>
+              <Button>
+                <img src={CartIcon} alt="cart-icon" /> Add to cart
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </main>
+    </>
   )
 }
 
