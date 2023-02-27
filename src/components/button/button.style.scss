@@ -3,10 +3,18 @@
     border: 1px solid var(--orange);
     border-radius: 10px;
     place-items: center;
-    padding: .9em 4.5em;
-    align-items: center;
-    img{
+
+    img {
         width: 20px;
         height: 18px;
     }
+}
+
+.padding-button {
+    padding: .7rem 3.8rem;
+}
+
+.checkout-button {
+    padding: .7rem 6rem;
+    margin-bottom: 1.2rem;
 }

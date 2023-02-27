@@ -1,13 +1,15 @@
-import { products } from '../../data/imageData'
+import { useContext } from 'react'
+import { HomePageContext } from '../../context/homePage.context'
 import SwipeButton from '../swipe-btn/SwipeButton'
 
 import './image-modal.scss'
-const ImageModal = (props) => {
-  const { productImage, setIndex, index, modalMode, handleModal } = props
+const ImageModal = ({ modalMode }) => {
+  const { setIsModalOpen,  handleProductClick, productImage, products, index } =
+    useContext(HomePageContext)
   let modalClass = 'image-container grid ' + modalMode
   return (
     <div className={modalClass}>
-      <div className="main-image" onClick={handleModal}>
+      <div className="main-image" onClick={() => setIsModalOpen(true)}>
         <SwipeButton />
         <img src={productImage.image} alt={productImage.name} />
       </div>
@@ -21,9 +23,7 @@ const ImageModal = (props) => {
                   : 'thubnail-image'
               }
               key={product.id}
-              onClick={() => {
-                setIndex(product.id)
-              }}
+              onClick={() => handleProductClick(product.id)}
             >
               <img src={product.image} alt={product.name} />
             </div>

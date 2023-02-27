@@ -92,7 +92,7 @@
 
             .swipe-hover {
                 border: 1px solid var(--orange) !important;
-
+                cursor: pointer;
                 svg {
                     color: var(--orange) !important;
                 }
@@ -168,10 +168,50 @@
 }
 
 @media (max-width:550px) {
+
     .swipe-buttons {
         display: block;
-    }
+        position: absolute;
+        top: 18%;
+        left: .5rem;
+        width: 95%;
 
+        .swipe-hover {
+            border: 1px solid var(--orange) !important;
+            cursor: pointer;
+            svg {
+                color: var(--orange) !important;
+            }
+        }
+
+        .swipe-btn {
+            transition: .2s linear;
+            border: 1px solid var(--grayish-blue);
+
+            svg {
+                color: var(--very-dark-blue);
+            }
+
+            &:first-child {
+                float: left;
+            }
+
+            &:last-child {
+                float: right;
+            }
+
+            &:last-child,
+            &:first-child {
+                display: inline-grid;
+                place-items: center;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                background: var(--white);
+            }
+        }
+
+    }
     .image-container {
         width: 100%;
 
@@ -184,6 +224,6 @@
 
     .thubnail-container,
     .modal {
-        display: none;
+        display: none !important;
     }
 }

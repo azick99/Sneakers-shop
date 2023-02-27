@@ -1,40 +1,30 @@
-import React, { useState } from 'react'
+import { useContext} from 'react'
 import './home-page.style.scss'
 import Button from '../../components/button/Button'
-import { products } from '../../data/imageData'
 import { ReactComponent as Plus } from '../../assets/images/icon-plus.svg'
 import { ReactComponent as Minus } from '../../assets/images/icon-minus.svg'
 import { ReactComponent as Close } from '../../assets/images/icon-close.svg'
 import CartIcon from '../../assets/images/icon-cart-white.svg'
 import ImageModal from '../../components/image-modal/ImageModal'
 import SwipeButton from '../../components/swipe-btn/SwipeButton'
+import { HomePageContext } from '../../context/homePage.context'
+
 function HomePage() {
-  const [index, setIndex] = useState(0)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  let productImage = products[index]
-  const handleModal = () => setIsModalOpen(!isModalOpen)
+  const { isModalOpen, setIsModalOpen,productImage } = useContext(HomePageContext)
+
   return (
     <>
       {isModalOpen && (
         <div className="modal">
-          <Close onClick={handleModal} className='close'/>
-          <SwipeButton />
-          <ImageModal
-            index={index}
-            setIndex={setIndex}
-            productImage={productImage}
-            modalMode="modal-mode"
+          <Close onClick={() => setIsModalOpen(false)} className="close" />
+          <SwipeButton
           />
+          <ImageModal modalMode="modal-mode" />
         </div>
       )}
       <main className="container slide-left">
         <div className="grid-container grid-container--home">
-          <ImageModal
-            index={index}
-            setIndex={setIndex}
-            productImage={productImage}
-            handleModal={handleModal}
-          />
+          <ImageModal />
           <div className="mobile-container flow">
             <h1 className="text-orange fs-400  text-bold">
               SNEAKER COMPANY
@@ -64,7 +54,7 @@ function HomePage() {
                   <Plus />
                 </div>
               </div>
-              <Button>
+              <Button paddingInline='padding-button'>
                 <img src={CartIcon} alt="cart-icon" /> Add to cart
               </Button>
             </div>
