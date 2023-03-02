@@ -1,4 +1,4 @@
-import { useContext} from 'react'
+import { useContext } from 'react'
 import './home-page.style.scss'
 import Button from '../../components/button/Button'
 import { ReactComponent as Plus } from '../../assets/images/icon-plus.svg'
@@ -8,20 +8,31 @@ import CartIcon from '../../assets/images/icon-cart-white.svg'
 import ImageModal from '../../components/image-modal/ImageModal'
 import SwipeButton from '../../components/swipe-btn/SwipeButton'
 import { HomePageContext } from '../../context/homePage.context'
+import ButtonTooltip from '../../components/button-comment/ButtonTooltip'
 
 function HomePage() {
-  const { isModalOpen, setIsModalOpen,productImage } = useContext(HomePageContext)
-
+  const {
+    isModalOpen,
+    setIsModalOpen,
+    productImage,
+    handleAddToCart,
+    handleIncrementCounter,
+    handleDecrementCounter,
+    productCounter,
+    tooltipToggle,
+  } = useContext(HomePageContext)
+  
   return (
     <>
+
       {isModalOpen && (
         <div className="modal">
           <Close onClick={() => setIsModalOpen(false)} className="close" />
-          <SwipeButton
-          />
+          <SwipeButton />
           <ImageModal modalMode="modal-mode" />
         </div>
       )}
+
       <main className="container slide-left">
         <div className="grid-container grid-container--home">
           <ImageModal />
@@ -46,15 +57,18 @@ function HomePage() {
             </div>
             <div className="add-container flex">
               <div className="count-container flex">
-                <div>
+                <div onClick={handleDecrementCounter}>
                   <Minus />
                 </div>
-                <span className=" count text-bold text-dark">0</span>
-                <div>
+                <span className=" count text-bold text-dark">
+                  {productCounter}
+                </span>
+                <div onClick={handleIncrementCounter}>
                   <Plus />
                 </div>
               </div>
-              <Button paddingInline='padding-button'>
+              {tooltipToggle && <ButtonTooltip />}
+              <Button paddingInline="padding-button" onClick={handleAddToCart}>
                 <img src={CartIcon} alt="cart-icon" /> Add to cart
               </Button>
             </div>

@@ -8,10 +8,13 @@
         width: 20px;
         height: 18px;
     }
+    &:focus{
+        opacity: .5;
+    }
 }
 
 .padding-button {
-    padding: .7rem 3.8rem;
+    padding: .7rem 3.0rem;
 }
 
 .checkout-button {

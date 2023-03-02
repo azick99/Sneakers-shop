@@ -1,13 +1,11 @@
-// import { ReactComponent as ShoppingIcon } from '../../assets/images/icon-cart.svg'
-// import { ReactComponent as ShoppingIconDark } from '../../assets/images/icon-cart copy.svg'
+import { useContext } from 'react'
 import ShoppingIcon from '../../assets/images/icon-cart.svg'
 import ShoppingIconDark from '../../assets/images/icon-cart copy.svg'
+import { NavigationContext } from '../../context/navigation.context'
 import './cart-icon.style.scss'
 
-const CartIcon = ({ handleToggle, toggle }) => {
-  const isCartOpen = () => {
-    return handleToggle({ ...toggle, isDropdownOpen: !toggle.isDropdownOpen })
-  }
+const CartIcon = () => {
+  const { isCartOpen, toggle } = useContext(NavigationContext)
 
   return (
     <div className="cart-icon">

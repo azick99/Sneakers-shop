@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useContext } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import './navigation.style.scss'
 import { ReactComponent as SneakersLogo } from '../../assets/images/logo.svg'
@@ -7,6 +7,8 @@ import close from '../../assets/images/icon-close.svg'
 import hamburger from '../../assets/images/icon-menu.svg'
 import CartDropdown from '../../components/cart-dropdown/CartDropdown'
 import CartIcon from '../../components/cart-icon/CartIcon'
+import { NavigationContext } from '../../context/navigation.context'
+import { HomePageContext } from '../../context/homePage.context'
 
 const MobileMenu = ({ isMobileMenuOpen }) => {
   let mobileMenuClass = ' mobile-menu flex slide-left'
@@ -25,15 +27,8 @@ const MobileMenu = ({ isMobileMenuOpen }) => {
 }
 
 const Navigation = () => {
-  const [toggle, setSetToggle] = useState({
-    isDropdownOpen: false,
-    isMobileMenuOpen: false,
-  })
-  const handleMobileMenu = () =>
-    setSetToggle({
-      ...toggle,
-      isMobileMenuOpen: !toggle.isMobileMenuOpen,
-    })
+  const { handleMobileMenu, toggle } = useContext(NavigationContext)
+  const { productCounter } = useContext(HomePageContext)
   return (
     <>
       <nav className="navigation flex container">
@@ -50,7 +45,12 @@ const Navigation = () => {
           <MobileMenu isMobileMenuOpen={toggle.isMobileMenuOpen} />
         </div>
         <div className="secondary-navigation flex">
-          <CartIcon handleToggle={setSetToggle} toggle={toggle} />
+          {!!productCounter && (
+            <span className="cart-counter bg-orange text-white">
+              {productCounter}
+            </span>
+          )}
+          <CartIcon toggle={toggle} />
           <NavLink to="/auth">
             <img src={avatar} alt="avatar" />
           </NavLink>

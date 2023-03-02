@@ -10,6 +10,8 @@ export const products = [
     name: 'image1',
     image: image1,
     price: 125,
+    count: 0,
+    total: 125,
   },
   {
     id: 1,
@@ -17,6 +19,8 @@ export const products = [
     name: 'image2',
     image: image2,
     price: 90,
+    count: 0,
+    total: 90,
   },
   {
     id: 2,
@@ -24,6 +28,8 @@ export const products = [
     name: 'image3',
     image: image3,
     price: 100,
+    count: 0,
+    total: 100,
   },
   {
     id: 3,
@@ -31,5 +37,7 @@ export const products = [
     name: 'image4',
     image: image4,
     price: 115,
+    count: 0,
+    total: 115,
   },
 ]

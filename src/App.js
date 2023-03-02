@@ -2,12 +2,15 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/router'
 import { HomePageProvider } from './context/homePage.context'
 import './utils/class-styles/class-utils.scss'
+import { NavigationProvider } from './context/navigation.context'
 function App() {
   return (
     <HomePageProvider>
-      <div>
-        <RouterProvider router={router} />
-      </div>
+      <NavigationProvider>
+        <div>
+          <RouterProvider router={router} />
+        </div>
+      </NavigationProvider>
     </HomePageProvider>
   )
 }
