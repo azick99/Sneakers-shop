@@ -91,17 +91,23 @@
 
     .grid-container {
         align-items: start;
+        margin-bottom: 1rem;
     }
 
     .add-container {
         flex-direction: column;
-
         .count-container {
             justify-content: space-between;
             align-items: center;
             width: 100%;
         }
 
+        .custom-button {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
 
     }
 
