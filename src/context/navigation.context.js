@@ -2,32 +2,36 @@ import { createContext, useState } from 'react'
 
 export const NavigationContext = createContext({
   toggle: {},
-  setSetToggle: () => {},
+  setToggle: () => {},
   handleMobileMenu: () => {},
   isCartOpen: () => {},
 })
 
-
 export const NavigationProvider = ({ children }) => {
-  const [toggle, setSetToggle] = useState({
+  const [toggle, setToggle] = useState({
     isDropdownOpen: false,
     isMobileMenuOpen: false,
+    isLoginOpen: true,
   })
 
-
   const handleMobileMenu = () =>
-    setSetToggle({
+    setToggle({
       ...toggle,
       isMobileMenuOpen: !toggle.isMobileMenuOpen,
     })
-    
+
   const isCartOpen = () =>
-    setSetToggle({ ...toggle, isDropdownOpen: !toggle.isDropdownOpen })
+    setToggle({ ...toggle, isDropdownOpen: !toggle.isDropdownOpen })
+
+  const isLoginOpen = () => setToggle({ ...toggle, isLoginOpen: true })
+  const isLoginClose = () => setToggle({ ...toggle, isLoginOpen: false })
 
   const value = {
+    isLoginClose,
+    isLoginOpen,
     toggle,
     handleMobileMenu,
-    setSetToggle,
+    setToggle,
     isCartOpen,
   }
   return (

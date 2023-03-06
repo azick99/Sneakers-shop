@@ -1,0 +1,33 @@
+.auth-wrapper {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 450px;
+    height: 590px;
+    background: transparent;
+    border: 2px solid hsl(220 13 13 / .5);
+    margin-top: 2rem;
+    border-radius: 20px;
+    background: hsl(25 100 94 / .1);
+    backdrop-filter: blur(20px);
+    color: var(--very-dark-blue);
+    overflow: hidden;
+    margin-bottom: 2rem;
+
+
+    .form-close-icon{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 45px;
+        height: 45px;
+        background-color: var(--very-dark-blue);
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 1;
+        border-bottom-left-radius: 20px;
+    }
+}

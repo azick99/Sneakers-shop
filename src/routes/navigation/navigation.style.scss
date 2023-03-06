@@ -34,6 +34,12 @@
     }
 }
 
+@media screen and (max-width:550px) {
+    .navigation {
+        padding-inline: .5rem !important;
+    }
+}
+
 .navigation {
     justify-content: space-between;
     border-bottom: 2px solid hsl(220 14 75 / .2);
