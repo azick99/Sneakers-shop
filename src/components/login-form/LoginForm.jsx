@@ -4,14 +4,18 @@ import { ReactComponent as LockIcon } from '../../assets/images/lock-closed.svg'
 import { Link } from 'react-router-dom'
 import { NavigationContext } from '../../context/navigation.context'
 import { useContext } from 'react'
-import { signInWithGooglePopup } from '../../utils/firebase/firebase.utils'
+import {
+  createUserDocumentFromAuth,
+  signInWithGooglePopup,
+} from '../../utils/firebase/firebase.utils'
 
 const LoginForm = () => {
   const { isLoginClose } = useContext(NavigationContext)
 
   const logGoogleUser = async () => {
-    const response = await signInWithGooglePopup()
-    console.log(response)
+    const { user } = await signInWithGooglePopup()
+    const userDocRef = await createUserDocumentFromAuth(user)
+    console.log(user)
   }
 
   return (
