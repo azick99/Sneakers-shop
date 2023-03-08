@@ -7,6 +7,8 @@ import './authorisation.style.scss'
 
 const Authrisation = () => {
   const { toggle, isLoginOpen } = useContext(NavigationContext)
+
+
   return (
     <div className="auth-wrapper container flex slide-left">
       {!toggle.isLoginOpen && (

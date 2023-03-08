@@ -4,12 +4,19 @@ import { ReactComponent as LockIcon } from '../../assets/images/lock-closed.svg'
 import { Link } from 'react-router-dom'
 import { NavigationContext } from '../../context/navigation.context'
 import { useContext } from 'react'
+import { signInWithGooglePopup } from '../../utils/firebase/firebase.utils'
 
 const LoginForm = () => {
-  const {isLoginClose} = useContext(NavigationContext)
+  const { isLoginClose } = useContext(NavigationContext)
+
+  const logGoogleUser = async () => {
+    const response = await signInWithGooglePopup()
+    console.log(response)
+  }
+
   return (
     <div className="form-box login slide-left">
-      <h2 className='text-bold'>Login</h2>
+      <h2 className="text-bold">Login</h2>
       <form action="#">
         <div className="input-box">
           <span className="icon">
@@ -31,16 +38,20 @@ const LoginForm = () => {
           </label>
           <Link>Forgot Password?</Link>
         </div>
-        <button type="submit" className='login-btn'>
+        <button type="submit" className="login-btn">
           Login
         </button>
-        <button type="submit" className='login-btn'>
+        <button
+          type="submit"
+          className="login-with-google-btn"
+          onClick={logGoogleUser}
+        >
           Login with Google
         </button>
         <div className="login-register">
           <p>
             Don't have an account?{' '}
-            <Link href='#' className="register-link" onClick={isLoginClose}>
+            <Link href="#" className="register-link" onClick={isLoginClose}>
               Register
             </Link>
           </p>
