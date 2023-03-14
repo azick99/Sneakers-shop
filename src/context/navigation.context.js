@@ -14,6 +14,9 @@ export const NavigationProvider = ({ children }) => {
     isLoginOpen: true,
   })
 
+
+
+  // Dropdown Handlers 
   const handleMobileMenu = () =>
     setToggle({
       ...toggle,
@@ -26,6 +29,7 @@ export const NavigationProvider = ({ children }) => {
   const isLoginOpen = () => setToggle({ ...toggle, isLoginOpen: true })
   const isLoginClose = () => setToggle({ ...toggle, isLoginOpen: false })
 
+  
   const value = {
     isLoginClose,
     isLoginOpen,

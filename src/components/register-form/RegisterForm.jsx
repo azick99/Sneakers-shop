@@ -1,26 +1,26 @@
-import './login-form.style.scss'
 import EmailIcon from '../../assets/images/mail.svg'
+import PersonIcon from '../../assets/images/person-sharp.svg'
 import LockIcon from '../../assets/images/lock-closed.svg'
 import { Link } from 'react-router-dom'
 import { NavigationContext } from '../../context/navigation.context'
 import { useContext, useState } from 'react'
 import {
+  createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
-  signInAuthUserWithEmailAndPassword,
-  signInWithGooglePopup,
 } from '../../utils/firebase/firebase.utils'
 import FormInput from '../form-input/FormInput'
 
 const defaultFormFields = {
+  userName: '',
   email: '',
   password: '',
+  confirmPassword: '',
 }
 
-const LoginForm = () => {
-  const { isLoginClose } = useContext(NavigationContext)
-
+const RegisterForm = () => {
+  const { isLoginOpen } = useContext(NavigationContext)
   const [formFields, setFormFields] = useState(defaultFormFields)
-  const { email, password } = formFields
+  const { userName, email, password, confirmPassword } = formFields
 
   const resetFormField = () => {
     setFormFields(defaultFormFields)
@@ -28,22 +28,20 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+    if (password !== confirmPassword) {
+      alert('password do not match')
+      return
+    }
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password)
-      console.log(response)
+      const { user } = await createAuthUserWithEmailAndPassword(email, password)
+      await createUserDocumentFromAuth(user, { userName })
       resetFormField()
-      alert('You have logged in')
+      alert('You have registered')
     } catch (error) {
-      switch (error.code) {
-        case 'auth/wrong-password':
-          alert('incorrect password for email')
-          break
-        case 'auth/user-not-found':
-          alert('No user found with this email')
-          break
-        default:
-          console.log(error)
+      if (error.code === 'auth/email-already-in-use') {
+        alert('Cannot create user, email already in use')
+      } else {
+        console.log(' user creation ancounter an', error)
       }
     }
   }
@@ -54,15 +52,20 @@ const LoginForm = () => {
     setFormFields({ ...formFields, [name]: value })
   }
 
-  const loginWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup()
-    const userDocRef = await createUserDocumentFromAuth(user)
-  }
-
   return (
     <div className="form-box slide-left">
-      <h2 className="text-bold">Login</h2>
+      <h2 className="text-bold">Registeretion</h2>
       <form onSubmit={handleSubmit}>
+        <FormInput
+          label="Username"
+          type="text"
+          required
+          onChange={handleChange}
+          name="userName"
+          value={userName}
+          icons={PersonIcon}
+          alts="person"
+        />
         <FormInput
           type="email"
           onChange={handleChange}
@@ -71,8 +74,8 @@ const LoginForm = () => {
           required
           autoComplete=""
           label="Email"
-          alts="email"
           icons={EmailIcon}
+          alts="email"
         />
         <FormInput
           type="password"
@@ -82,30 +85,35 @@ const LoginForm = () => {
           required
           autoComplete=""
           label="Password"
-          alts="password"
           icons={LockIcon}
+          alts="password"
         />
+        <FormInput
+          type="password"
+          onChange={handleChange}
+          name="confirmPassword"
+          value={confirmPassword}
+          required
+          autoComplete=""
+          label="Confirm password"
+          icons={LockIcon}
+          alts="confirm password"
+        />
+
         <div className="remember-forgot">
           <label>
-            <input type="checkbox" /> Remember me
+            <input type="checkbox" /> I agree to the terms & conditions
           </label>
-          <Link>Forgot Password?</Link>
         </div>
         <button type="submit" className="login-btn" onClick={handleSubmit}>
-          Login
+          Register
         </button>
-        <button
-          type="button"
-          className="login-with-google-btn"
-          onClick={loginWithGoogle}
-        >
-          Login with Google
-        </button>
+
         <div className="login-register">
           <p>
-            Don't have an account?{' '}
-            <Link href="#" className="register-link" onClick={isLoginClose}>
-              Register
+            Already have an account?{' '}
+            <Link href="#" className="login-link" onClick={isLoginOpen}>
+              Login
             </Link>
           </p>
         </div>
@@ -114,4 +122,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default RegisterForm

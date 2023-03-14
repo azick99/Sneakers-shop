@@ -9,57 +9,6 @@
     }
 }
 
-.input-box {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    border-bottom: 2px solid var(--dark-grayish-blue);
-    margin: 30px 0;
-
-    label {
-        position: absolute;
-        top: 50%;
-        left: 5px;
-        transform: translateY(-50%);
-        font-size: 1rem;
-        color: var(--dark-grayish-blue);
-        font-weight: 500;
-        pointer-events: none;
-        transition: .4s;
-    }
-
-    input {
-        width: 100%;
-        height: 100%;
-        background: transparent;
-        border: none;
-        outline: none;
-        font-size: 1em;
-        color: var(--dark-grayish-blue);
-        font-weight: 600;
-        padding: 0 2.5rem 0 .3rem;
-
-        &:focus~label,
-        &:valid~label {
-            top: -5px;
-        }
-    }
-
-
-    svg {
-        position: absolute;
-        top: 15px;
-        right: 8px;
-        font-size: 1.2rem;
-        line-height: 57px;
-        max-width: 5%;
-    }
-
-    .ionicon {
-        color: var(--dark-grayish-blue) !important;
-    }
-}
-
 .remember-forgot {
     font-size: .9em;
     margin: -15px 0 15px;
@@ -110,9 +59,11 @@
         color: var(--very-dark-blue);
     }
 }
-.login-with-google-btn{
+
+.login-with-google-btn {
     background: var(--dark-grayish-blue);
-    &:hover{
+
+    &:hover {
         border: 1px solid var(--dark-grayish-blue);
     }
 }

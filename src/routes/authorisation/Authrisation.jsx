@@ -1,13 +1,12 @@
 import { useContext } from 'react'
 import LoginForm from '../../components/login-form/LoginForm'
-import SignUpForm from '../../components/sign-up-form/SignUpForm'
 import { ReactComponent as CloseIcon } from '../../assets/images/icon-close.svg'
 import { NavigationContext } from '../../context/navigation.context'
 import './authorisation.style.scss'
+import RegisterForm from '../../components/register-form/RegisterForm'
 
 const Authrisation = () => {
   const { toggle, isLoginOpen } = useContext(NavigationContext)
-
 
   return (
     <div className="auth-wrapper container flex slide-left">
@@ -16,7 +15,7 @@ const Authrisation = () => {
           <CloseIcon />
         </span>
       )}
-      {toggle.isLoginOpen ? <LoginForm /> : <SignUpForm />}
+      {toggle.isLoginOpen ? <LoginForm /> : <RegisterForm />}
     </div>
   )
 }
