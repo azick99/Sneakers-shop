@@ -2,11 +2,10 @@ import { useState } from 'react'
 import { logOutUser } from '../../utils/firebase/firebase.utils'
 import './login-image.style.scss'
 
-const LoginImage = ({ currentUser, setCurrentUser }) => {
+const LoginImage = ({ currentUser}) => {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false)
   const logOutHandler = async () => {
     await logOutUser()
-    setCurrentUser(null)
   }
   if (!currentUser.photoURL) {
     return (
@@ -20,7 +19,7 @@ const LoginImage = ({ currentUser, setCurrentUser }) => {
       <img
         src={currentUser.photoURL}
         alt="avatar"
-        className="google-img"
+        className={`${isLogoutOpen && 'google-image-border'} google-img`}
         onClick={() => setIsLogoutOpen(!isLogoutOpen)}
       />
       {isLogoutOpen && (

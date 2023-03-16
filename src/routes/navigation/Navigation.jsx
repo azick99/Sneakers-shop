@@ -28,7 +28,7 @@ const MobileMenu = ({ isMobileMenuOpen }) => {
 }
 
 const Navigation = () => {
-  const { handleMobileMenu, toggle, currentUser, setCurrentUser } =
+  const { handleMobileMenu, toggle, currentUser } =
     useContext(NavigationContext)
   const { productCounter } = useContext(HomePageContext)
 
@@ -55,7 +55,7 @@ const Navigation = () => {
           )}
           <CartIcon toggle={toggle} />
           {currentUser ? (
-            <LoginImage currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <LoginImage currentUser={currentUser} />
           ) : (
             <NavLink to="/auth">
               <img src={avatar} alt="avatar" />

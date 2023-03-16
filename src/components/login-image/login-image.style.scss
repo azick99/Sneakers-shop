@@ -8,6 +8,10 @@
     cursor: pointer;
 }
 
+.google-image-border {
+    border: 2px solid var(--orange);
+}
+
 .log-out-container {
     position: absolute;
     background: var(--white);

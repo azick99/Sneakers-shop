@@ -1,4 +1,9 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
+import {
+  createUserDocumentFromAuth,
+  logOutUser,
+  onAuthStateChangedListener,
+} from '../utils/firebase/firebase.utils'
 
 export const NavigationContext = createContext({
   toggle: {},
@@ -16,8 +21,6 @@ export const NavigationProvider = ({ children }) => {
     isLoginOpen: true,
   })
   const [currentUser, setCurrentUser] = useState(null)
-
-  // Auth Handlers
 
   // Dropdown Handlers
   const handleMobileMenu = () =>
@@ -41,8 +44,20 @@ export const NavigationProvider = ({ children }) => {
     isCartOpen,
 
     currentUser,
-    setCurrentUser
+    setCurrentUser,
   }
+  // Auth Handlers
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user)
+      }
+      console.log(user)
+      setCurrentUser(user)
+    })
+    return unsubscribe
+  }, [])
   return (
     <NavigationContext.Provider value={value}>
       {children}

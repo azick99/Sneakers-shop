@@ -17,7 +17,7 @@ const defaultFormFields = {
 }
 
 const LoginForm = () => {
-  const { isLoginClose, setCurrentUser } = useContext(NavigationContext)
+  const { isLoginClose } = useContext(NavigationContext)
 
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
@@ -30,8 +30,7 @@ const LoginForm = () => {
     e.preventDefault()
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password)
-      setCurrentUser(response)
+      await signInAuthUserWithEmailAndPassword(email, password)
       resetFormField()
     } catch (error) {
       switch (error.code) {
@@ -54,9 +53,8 @@ const LoginForm = () => {
   }
 
   const loginWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup()
-    await createUserDocumentFromAuth(user)
-    setCurrentUser(user)
+    await signInWithGooglePopup()
+
   }
 
   return (

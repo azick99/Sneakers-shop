@@ -18,7 +18,7 @@ const defaultFormFields = {
 }
 
 const RegisterForm = () => {
-  const { isLoginOpen, setCurrentUser } = useContext(NavigationContext)
+  const { isLoginOpen } = useContext(NavigationContext)
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { userName, email, password, confirmPassword } = formFields
   const resetFormField = () => {
@@ -34,7 +34,6 @@ const RegisterForm = () => {
     try {
       const { user } = await createAuthUserWithEmailAndPassword(email, password)
       await createUserDocumentFromAuth(user, { userName })
-      setCurrentUser(user)
       resetFormField()
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
