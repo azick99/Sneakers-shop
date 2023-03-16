@@ -1,0 +1,36 @@
+.google-img {
+    border-radius: 50%;
+    width: 40px;
+    cursor: pointer;
+}
+
+.log-out {
+    cursor: pointer;
+}
+
+.log-out-container {
+    position: absolute;
+    background: var(--white);
+    padding: 1rem;
+    -webkit-box-shadow: -3px 19px 31px -12px rgba(0, 0, 0, 0.77);
+    -moz-box-shadow: -3px 19px 31px -12px rgba(0, 0, 0, 0.77);
+    box-shadow: -3px 19px 31px -12px rgba(0, 0, 0, 0.77);
+    z-index: 10;
+    top: 11%;
+    right: 10%;
+    border-radius: 10px;
+
+    p {
+        cursor: pointer;
+    }
+
+    p:first-child {
+        padding-bottom: .3rem;
+
+    }
+
+    p:last-child {
+        padding-top: .3rem;
+        border-top: 1px solid var(--grayish-blue);
+    }
+}

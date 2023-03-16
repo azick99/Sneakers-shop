@@ -9,6 +9,7 @@ import CartDropdown from '../../components/cart-dropdown/CartDropdown'
 import CartIcon from '../../components/cart-icon/CartIcon'
 import { NavigationContext } from '../../context/navigation.context'
 import { HomePageContext } from '../../context/homePage.context'
+import LoginImage from '../../components/login-image/LoginImage'
 
 const MobileMenu = ({ isMobileMenuOpen }) => {
   let mobileMenuClass = ' mobile-menu flex slide-left'
@@ -27,8 +28,10 @@ const MobileMenu = ({ isMobileMenuOpen }) => {
 }
 
 const Navigation = () => {
-  const { handleMobileMenu, toggle } = useContext(NavigationContext)
+  const { handleMobileMenu, toggle, currentUser, setCurrentUser } =
+    useContext(NavigationContext)
   const { productCounter } = useContext(HomePageContext)
+
   return (
     <>
       <nav className="navigation flex container">
@@ -51,9 +54,13 @@ const Navigation = () => {
             </span>
           )}
           <CartIcon toggle={toggle} />
-          <NavLink to="/auth">
-            <img src={avatar} alt="avatar" />
-          </NavLink>
+          {currentUser ? (
+            <LoginImage currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+          ) : (
+            <NavLink to="/auth">
+              <img src={avatar} alt="avatar" />
+            </NavLink>
+          )}
         </div>
         {toggle.isDropdownOpen && <CartDropdown />}
       </nav>

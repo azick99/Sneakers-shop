@@ -2,6 +2,8 @@ import { createContext, useState } from 'react'
 
 export const NavigationContext = createContext({
   toggle: {},
+  currentUser: null,
+  setCurrentUser: () => null,
   setToggle: () => {},
   handleMobileMenu: () => {},
   isCartOpen: () => {},
@@ -13,10 +15,11 @@ export const NavigationProvider = ({ children }) => {
     isMobileMenuOpen: false,
     isLoginOpen: true,
   })
+  const [currentUser, setCurrentUser] = useState(null)
 
+  // Auth Handlers
 
-
-  // Dropdown Handlers 
+  // Dropdown Handlers
   const handleMobileMenu = () =>
     setToggle({
       ...toggle,
@@ -29,14 +32,16 @@ export const NavigationProvider = ({ children }) => {
   const isLoginOpen = () => setToggle({ ...toggle, isLoginOpen: true })
   const isLoginClose = () => setToggle({ ...toggle, isLoginOpen: false })
 
-  
   const value = {
+    toggle,
     isLoginClose,
     isLoginOpen,
-    toggle,
     handleMobileMenu,
     setToggle,
     isCartOpen,
+
+    currentUser,
+    setCurrentUser
   }
   return (
     <NavigationContext.Provider value={value}>

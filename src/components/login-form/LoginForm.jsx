@@ -17,7 +17,7 @@ const defaultFormFields = {
 }
 
 const LoginForm = () => {
-  const { isLoginClose } = useContext(NavigationContext)
+  const { isLoginClose, setCurrentUser } = useContext(NavigationContext)
 
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
@@ -31,9 +31,8 @@ const LoginForm = () => {
 
     try {
       const response = await signInAuthUserWithEmailAndPassword(email, password)
-      console.log(response)
+      setCurrentUser(response)
       resetFormField()
-      alert('You have logged in')
     } catch (error) {
       switch (error.code) {
         case 'auth/wrong-password':
@@ -56,7 +55,8 @@ const LoginForm = () => {
 
   const loginWithGoogle = async () => {
     const { user } = await signInWithGooglePopup()
-    const userDocRef = await createUserDocumentFromAuth(user)
+    await createUserDocumentFromAuth(user)
+    setCurrentUser(user)
   }
 
   return (
