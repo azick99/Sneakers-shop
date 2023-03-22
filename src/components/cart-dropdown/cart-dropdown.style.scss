@@ -6,7 +6,7 @@
     -webkit-box-shadow: -3px 19px 31px -12px rgba(0, 0, 0, 0.77);
     -moz-box-shadow: -3px 19px 31px -12px rgba(0, 0, 0, 0.77);
     box-shadow: -3px 19px 31px -12px rgba(0, 0, 0, 0.77);
-    width: 300px;
+    width: 280px;
     height: 200px;
     border-radius: 10px;
     background: var(--white);
@@ -26,21 +26,8 @@
     }
 }
 
-.product-container {
-    align-items: center;
-    margin-top: 1rem;
 
-    img {
-        border-radius: 5px;
-    }
-    svg{
-        color: var(--grayish-blue);
-        cursor: pointer;
-        &:hover{
-            color: var(--orange);
-        }
-    }
-}
+
 
 @media (max-width:550px) {
     .cart-dropdown-container {

@@ -14,7 +14,6 @@ function HomePage() {
   const {
     isModalOpen,
     setIsModalOpen,
-    productImage,
     handleAddToCart,
     handleIncrementCounter,
     handleDecrementCounter,
@@ -50,7 +49,7 @@ function HomePage() {
             </p>
             <div>
               <h2 className="price fs-500 text-bold text-dark flex ">
-                <span> ${productImage.price}.00</span>
+                <span> $120.00</span>
                 <span className="discount fs-400 text-orange">50%</span>
               </h2>
               <p className="old-price fs-400">$250.00</p>

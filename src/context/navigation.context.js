@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import {
   createUserDocumentFromAuth,
-  logOutUser,
   onAuthStateChangedListener,
 } from '../utils/firebase/firebase.utils'
 
@@ -21,7 +20,7 @@ export const NavigationProvider = ({ children }) => {
     isLoginOpen: true,
   })
   const [currentUser, setCurrentUser] = useState(null)
-
+  
   // Dropdown Handlers
   const handleMobileMenu = () =>
     setToggle({
@@ -35,6 +34,18 @@ export const NavigationProvider = ({ children }) => {
   const isLoginOpen = () => setToggle({ ...toggle, isLoginOpen: true })
   const isLoginClose = () => setToggle({ ...toggle, isLoginOpen: false })
 
+  // Auth Handlers
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user)
+      }
+      setCurrentUser(user)
+    })
+    return unsubscribe
+  }, [])
+
   const value = {
     toggle,
     isLoginClose,
@@ -46,18 +57,7 @@ export const NavigationProvider = ({ children }) => {
     currentUser,
     setCurrentUser,
   }
-  // Auth Handlers
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user)
-      }
-      console.log(user)
-      setCurrentUser(user)
-    })
-    return unsubscribe
-  }, [])
   return (
     <NavigationContext.Provider value={value}>
       {children}

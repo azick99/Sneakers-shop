@@ -10,6 +10,7 @@ import CartIcon from '../../components/cart-icon/CartIcon'
 import { NavigationContext } from '../../context/navigation.context'
 import { HomePageContext } from '../../context/homePage.context'
 import LoginImage from '../../components/login-image/LoginImage'
+import { ProductContext } from '../../context/product.context'
 
 const MobileMenu = ({ isMobileMenuOpen }) => {
   let mobileMenuClass = ' mobile-menu flex slide-left'
@@ -30,7 +31,7 @@ const MobileMenu = ({ isMobileMenuOpen }) => {
 const Navigation = () => {
   const { handleMobileMenu, toggle, currentUser } =
     useContext(NavigationContext)
-  const { productCounter } = useContext(HomePageContext)
+  const { cartCount } = useContext(ProductContext)
 
   return (
     <>
@@ -48,9 +49,9 @@ const Navigation = () => {
           <MobileMenu isMobileMenuOpen={toggle.isMobileMenuOpen} />
         </div>
         <div className="secondary-navigation flex">
-          {!!productCounter && (
+          {!!cartCount && (
             <span className="cart-counter bg-orange text-white">
-              {productCounter}
+              {cartCount}
             </span>
           )}
           <CartIcon toggle={toggle} />

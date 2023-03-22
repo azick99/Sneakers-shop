@@ -1,0 +1,19 @@
+.product-container {
+    align-items: center;
+    margin-top: .5rem;
+    --gap:1.3rem;
+    img {
+        border-radius: 5px;
+        width: 40px;
+        height: 40px;
+    }
+
+    svg {
+        color: var(--grayish-blue);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--orange);
+        }
+    }
+}

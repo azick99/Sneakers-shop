@@ -5,10 +5,9 @@ import { products } from '../data/imageData'
 export const HomePageContext = createContext({
   saleItems: [],
   products: [],
-  productImage: {},
   index: 0,
-  total: 0,
   productCounter: 0,
+  totalCart: 120,
   isModalOpen: Boolean,
   handlePrevClick: () => {},
   handleNextClick: () => {},
@@ -20,47 +19,28 @@ export const HomePageContext = createContext({
   handleDecrementCounter: () => {},
 })
 
-let nextId = 0
-
 export const HomePageProvider = ({ children }) => {
   const [index, setIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [saleItems, setSaleItmes] = useState([])
   const [productCounter, setProductCounter] = useState(0)
   const [tooltipToggle, setTooltipToggle] = useState(false)
+  const [totalCart, setTotalCart] = useState(120)
 
-  const handleAddToCart = () => {
-    if (!!productCounter) {
-      setSaleItmes([
-        ...saleItems,
-        {
-          ...productImage,
-          id: nextId++,
-          count: productImage.count + productCounter,
-          total: productImage.total * productCounter,
-        },
-      ])
-    }
 
-    setProductCounter(0)
-
-    if (!productCounter) {
-      setTooltipToggle(true)
-      setInterval(() => setTooltipToggle(false), 3000)
-    }
+  const totalIncrement = productCounter + 1
+  const handleIncrementCounter = () => {
+    setProductCounter(totalIncrement)
+    setTotalCart(totalCart * totalIncrement)
   }
-
-  const handleIncrementCounter = () => setProductCounter(productCounter + 1)
 
   const handleDecrementCounter = () => {
     if (productCounter > 0) {
       setProductCounter(productCounter - 1)
+      setTotalCart(totalCart / productCounter)
     }
   }
 
-  const handleRemoveFromCart = (selectedId) =>
-    setSaleItmes(saleItems.filter((s) => s.id !== selectedId))
-
+  
   const hasPrev = index > 0
   const hasNext = index < products.length - 1
 
@@ -86,18 +66,16 @@ export const HomePageProvider = ({ children }) => {
 
   const value = {
     tooltipToggle,
-    saleItems,
     index,
     products,
     productImage,
     isModalOpen,
     productCounter,
-    handleAddToCart,
+    totalCart,
     handlePrevClick,
     handleNextClick,
     setIsModalOpen,
     handleProductClick,
-    handleRemoveFromCart,
     handleIncrementCounter,
     handleDecrementCounter,
   }
