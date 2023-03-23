@@ -1,29 +1,43 @@
 import { useContext } from 'react'
 import './home-page.style.scss'
 import Button from '../../components/button/Button'
-import { ReactComponent as Plus } from '../../assets/images/icon-plus.svg'
-import { ReactComponent as Minus } from '../../assets/images/icon-minus.svg'
 import { ReactComponent as Close } from '../../assets/images/icon-close.svg'
 import CartIcon from '../../assets/images/icon-cart-white.svg'
 import ImageModal from '../../components/image-modal/ImageModal'
 import SwipeButton from '../../components/swipe-btn/SwipeButton'
 import { HomePageContext } from '../../context/homePage.context'
 import ButtonTooltip from '../../components/button-comment/ButtonTooltip'
+import { ProductContext } from '../../context/product.context'
+import Counter from '../../components/counter/Counter'
 
 function HomePage() {
+  const { isModalOpen, setIsModalOpen, tooltipToggle } =
+    useContext(HomePageContext)
+
   const {
-    isModalOpen,
-    setIsModalOpen,
+    products,
     handleAddToCart,
-    handleIncrementCounter,
-    handleDecrementCounter,
+    handleRemoveFromCart,
     productCounter,
-    tooltipToggle,
-  } = useContext(HomePageContext)
+    setProductCounter,
+  } = useContext(ProductContext)
   
+  const heroProduct = products[0]
+  const addProductToCart = () => {
+    handleAddToCart(heroProduct)
+  }
+  const additonProduct = () => {
+    setProductCounter(productCounter + 1)
+  }
+
+  const removeProductfromCart = () => {
+    if (productCounter > 0) {
+      handleRemoveFromCart(heroProduct)
+      setProductCounter(productCounter - 1)
+    }
+  }
   return (
     <>
-
       {isModalOpen && (
         <div className="modal">
           <Close onClick={() => setIsModalOpen(false)} className="close" />
@@ -55,19 +69,13 @@ function HomePage() {
               <p className="old-price fs-400">$250.00</p>
             </div>
             <div className="add-container flex">
-              <div className="count-container flex">
-                <div onClick={handleDecrementCounter}>
-                  <Minus />
-                </div>
-                <span className=" count text-bold text-dark">
-                  {productCounter}
-                </span>
-                <div onClick={handleIncrementCounter}>
-                  <Plus />
-                </div>
-              </div>
+              <Counter
+                productCounter={productCounter}
+                handleAddToCart={additonProduct}
+                handleRemoveFromCart={removeProductfromCart}
+              />
               {tooltipToggle && <ButtonTooltip />}
-              <Button paddingInline="padding-button" onClick={handleAddToCart}>
+              <Button onClick={addProductToCart}>
                 <img src={CartIcon} alt="cart-icon" /> Add to cart
               </Button>
             </div>

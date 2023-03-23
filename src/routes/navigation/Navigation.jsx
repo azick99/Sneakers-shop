@@ -8,7 +8,6 @@ import hamburger from '../../assets/images/icon-menu.svg'
 import CartDropdown from '../../components/cart-dropdown/CartDropdown'
 import CartIcon from '../../components/cart-icon/CartIcon'
 import { NavigationContext } from '../../context/navigation.context'
-import { HomePageContext } from '../../context/homePage.context'
 import LoginImage from '../../components/login-image/LoginImage'
 import { ProductContext } from '../../context/product.context'
 

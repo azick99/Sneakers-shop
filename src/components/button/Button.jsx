@@ -1,12 +1,9 @@
 import './button.style.scss'
-const costumButton = 'custom-button bg-orange text-white flex '
 
-const Button = ({ children, checkout, paddingInline, ...otherProps }) => {
+const Button = ({ children, ...otherProps }) => {
   return (
     <button
-      className={
-        checkout ? costumButton + checkout : costumButton + paddingInline
-      }
+      className='custom-button bg-orange text-white flex'
       {...otherProps}
     >
       {children}

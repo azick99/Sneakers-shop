@@ -4,8 +4,9 @@ import './cart-item.styles.scss'
 import { ProductContext } from '../../context/product.context'
 
 const CartItem = ({ cartItem }) => {
-  const { handleRemoveFromCart } = useContext(ProductContext)
-  const { name, quantity, imageUrl, price, id, total } = cartItem
+  const { handleDeleteFromCart } =
+    useContext(ProductContext)
+  const { name, quantity, imageUrl, price, total, id } = cartItem
   return (
     <div className="product-container flex">
       <img src={imageUrl} alt={name} />
@@ -13,10 +14,12 @@ const CartItem = ({ cartItem }) => {
         <p>{name}</p>
         <p>
           <span>{price}.00$</span> x {quantity}
-          {!!total && <span className="text-bold text-dark"> {total}.00$</span>}
+          {quantity > 1 && (
+            <span className="text-bold text-dark"> {total}.00$</span>
+          )}
         </p>
       </div>
-      <RemoveIcon onClick={() => handleRemoveFromCart(id)} />
+      <RemoveIcon onClick={() => handleDeleteFromCart(id)} />
     </div>
   )
 }
