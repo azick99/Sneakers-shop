@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from 'react'
-import PRODUCTS from '../data/shop-data.json'
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
   //find the cart item to remove
@@ -28,6 +27,12 @@ const addCartItem = (cartItems, productToAdd) => {
     (cartItem) => cartItem.id === productToAdd.id
   )
 
+  const heroExistingCartItem = cartItems.find(
+    (cartItem) => cartItem.id && productToAdd.id === 0
+  )
+  if (heroExistingCartItem) {
+  }
+
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
       cartItem.id === productToAdd.id
@@ -47,21 +52,22 @@ const addCartItem = (cartItems, productToAdd) => {
   ]
 }
 
-export const ProductContext = createContext({
-  products: [],
+export const CartContext = createContext({
   cartItems: [],
   cartCount: 0,
-  productCounter: 0,
+  total: 0,
+  setHeroProduct: () => {},
   handleAddToCart: () => {},
   handleRemoveFromCart: () => {},
   handleDeleteFromCart: () => {},
 })
 
-export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState(PRODUCTS)
+export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([])
   const [cartCount, setCartCount] = useState(0)
-  const [productCounter, setProductCounter] = useState(0)
+  const [total, setTotal] = useState(0)
+
+
 
   useEffect(() => {
     const newCartCount = cartItems.reduce(
@@ -69,6 +75,14 @@ export const ProductProvider = ({ children }) => {
       0
     )
     setCartCount(newCartCount)
+  }, [cartItems])
+
+  useEffect(() => {
+    const newCartTotal = cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity * cartItem.price,
+      0
+    )
+    setTotal(newCartTotal)
   }, [cartItems])
 
   const handleAddToCart = (productToAdd) =>
@@ -82,15 +96,13 @@ export const ProductProvider = ({ children }) => {
 
   const value = {
     cartCount,
-    products,
     cartItems,
-    productCounter,
+    total,
     handleAddToCart,
     handleRemoveFromCart,
     handleDeleteFromCart,
-    setProductCounter,
   }
   return (
-    <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
+    <CartContext.Provider value={value}>{children}</CartContext.Provider>
   )
 }

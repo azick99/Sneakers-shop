@@ -9,7 +9,7 @@ import CartDropdown from '../../components/cart-dropdown/CartDropdown'
 import CartIcon from '../../components/cart-icon/CartIcon'
 import { NavigationContext } from '../../context/navigation.context'
 import LoginImage from '../../components/login-image/LoginImage'
-import { ProductContext } from '../../context/product.context'
+import { CartContext } from '../../context/cart.context'
 
 const MobileMenu = ({ isMobileMenuOpen }) => {
   let mobileMenuClass = ' mobile-menu flex slide-left'
@@ -30,7 +30,7 @@ const MobileMenu = ({ isMobileMenuOpen }) => {
 const Navigation = () => {
   const { handleMobileMenu, toggle, currentUser } =
     useContext(NavigationContext)
-  const { cartCount } = useContext(ProductContext)
+  const { cartCount } = useContext(CartContext)
 
   return (
     <>

@@ -1,15 +1,15 @@
-import { ReactComponent as Plus } from '../../assets/images/icon-plus.svg'
-import { ReactComponent as Minus } from '../../assets/images/icon-minus.svg'
+import Plus from '../../assets/images/icon-plus.svg'
+import Minus from '../../assets/images/icon-minus.svg'
 
-const Counter = ({ handleAddToCart, handleRemoveFromCart, productCounter }) => {
+const Counter = ({ quantity, addToCart, removeFromCart }) => {
   return (
     <div className="count-container flex">
-      <div onClick={handleRemoveFromCart}>
-        <Minus />
+      <div onClick={removeFromCart}>
+        <img src={Minus} alt="minus" />
       </div>
-      <span className="count text-bold text-dark">{productCounter}</span>
-      <div onClick={handleAddToCart}>
-        <Plus />
+      <span className="count text-bold text-dark">{quantity}</span>
+      <div onClick={addToCart}>
+        <img src={Plus} alt="plus" />
       </div>
     </div>
   )

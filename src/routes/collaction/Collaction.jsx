@@ -1,15 +1,27 @@
-import { useContext } from 'react'
+import { Fragment, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ProductCard from '../../components/product-card/ProductCard'
-import { ProductContext } from '../../context/product.context'
+import { CategoriesContext } from '../../context/categories.context'
 import './collaction.style.scss'
 
 const Collaction = () => {
-  const { products } = useContext(ProductContext)
+  const { categories } = useContext(CategoriesContext)
+  const navigate = useNavigate()
+  const goToCategoryHandler = (navigation) => {
+    navigate(`/${navigation}`)
+  }
 
   return (
-    <div className="products-container slide-left container">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+    <div className="slide-left container">
+      {Object.keys(categories).map((title) => (
+        <Fragment key={title}>
+          <h2 onClick={() => goToCategoryHandler(title)}>{title}</h2>
+          <div className="products-container ">
+            {categories[title].map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </Fragment>
       ))}
     </div>
   )

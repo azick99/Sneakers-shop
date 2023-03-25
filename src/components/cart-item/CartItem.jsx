@@ -1,11 +1,11 @@
 import { useContext } from 'react'
 import { ReactComponent as RemoveIcon } from '../../assets/images/icon-delete.svg'
+import { CartContext } from '../../context/cart.context'
 import './cart-item.styles.scss'
-import { ProductContext } from '../../context/product.context'
 
 const CartItem = ({ cartItem }) => {
   const { handleDeleteFromCart } =
-    useContext(ProductContext)
+    useContext(CartContext)
   const { name, quantity, imageUrl, price, total, id } = cartItem
   return (
     <div className="product-container flex">

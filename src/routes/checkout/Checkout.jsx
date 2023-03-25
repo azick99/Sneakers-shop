@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import CheckoutItem from '../../components/checkout-item/CheckoutItem'
-import { ProductContext } from '../../context/product.context'
+import { CartContext } from '../../context/cart.context'
 import './checkout.style.scss'
 
 const Checkout = () => {
-  const { cartItems } = useContext(ProductContext)
+  const { cartItems, total } = useContext(CartContext)
   return (
     <div className="checkout-container container slide-left">
       <div className="checkout-header">
@@ -30,7 +30,7 @@ const Checkout = () => {
       {cartItems.map((item) => (
         <CheckoutItem key={item.id} item={item} />
       ))}
-      <span className="total">Total:0</span>
+      <span className="total">Total:${total}</span>
     </div>
   )
 }
