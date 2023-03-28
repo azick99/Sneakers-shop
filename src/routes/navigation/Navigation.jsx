@@ -18,9 +18,9 @@ const MobileMenu = ({ isMobileMenuOpen }) => {
   }
   return (
     <div className={mobileMenuClass}>
-      <NavLink to="/collaction">Collaction</NavLink>
-      <NavLink to="/men">Men</NavLink>
-      <NavLink to="/women">Women</NavLink>
+      <NavLink to="/collections">Collections</NavLink>
+      <NavLink to="/mens">Men</NavLink>
+      <NavLink to="/womens">Women</NavLink>
       <NavLink to="/contact">Contact</NavLink>
       <NavLink to="/about">About</NavLink>
     </div>
