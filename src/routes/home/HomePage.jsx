@@ -5,19 +5,30 @@ import { ReactComponent as Close } from '../../assets/images/icon-close.svg'
 import CartIcon from '../../assets/images/icon-cart-white.svg'
 import ImageModal from '../../components/image-modal/ImageModal'
 import SwipeButton from '../../components/swipe-btn/SwipeButton'
-import { HomePageContext } from '../../context/homePage.context'
-import ButtonTooltip from '../../components/button-comment/ButtonTooltip'
 import Counter from '../../components/counter/Counter'
+import { CartContext } from '../../context/cart.context'
+import heroImg from '../../assets/images/image-product-1.jpg'
+import { NavigationContext } from '../../context/navigation.context'
+
+const HeroItem = {
+  id: 0,
+  name: 'Edition Sneakers',
+  imageUrl: heroImg,
+  price: 120,
+}
 
 function HomePage() {
-  const { isModalOpen, setIsModalOpen, tooltipToggle } =
-    useContext(HomePageContext)
+  const { toggle, handleImageModalClose } = useContext(NavigationContext)
+  const { productQuantity, handleHeroAddToCart, setProductQuantity } =
+    useContext(CartContext)
 
+  const addToCart = () => setProductQuantity(productQuantity + 1)
+  const removeFromCart = () => setProductQuantity(productQuantity - 1)
   return (
     <>
-      {isModalOpen && (
+      {toggle.isImageModalOpen && (
         <div className="modal">
-          <Close onClick={() => setIsModalOpen(false)} className="close" />
+          <Close onClick={handleImageModalClose} className="close" />
           <SwipeButton />
           <ImageModal modalMode="modal-mode" />
         </div>
@@ -46,9 +57,13 @@ function HomePage() {
               <p className="old-price fs-400">$250.00</p>
             </div>
             <div className="add-container flex">
-              <Counter />
-              {tooltipToggle && <ButtonTooltip />}
-              <Button>
+              <Counter
+                quantity={productQuantity}
+                addToCart={addToCart}
+                removeFromCart={removeFromCart}
+              />
+
+              <Button onClick={() => handleHeroAddToCart(HeroItem)}>
                 <img src={CartIcon} alt="cart-icon" /> Add to cart
               </Button>
             </div>

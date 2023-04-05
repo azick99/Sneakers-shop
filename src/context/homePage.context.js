@@ -4,18 +4,13 @@ import { products } from '../data/imageData'
 //as actual value you want to access
 export const HomePageContext = createContext({
   index: 0,
-  isModalOpen: Boolean,
   handlePrevClick: () => {},
   handleNextClick: () => {},
-  setIsModalOpen: () => {},
   handleProductClick: () => {},
 })
 
 export const HomePageProvider = ({ children }) => {
   const [index, setIndex] = useState(0)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [tooltipToggle, setTooltipToggle] = useState(false)
-
   const hasPrev = index > 0
   const hasNext = index < products.length - 1
 
@@ -32,21 +27,16 @@ export const HomePageProvider = ({ children }) => {
     e.stopPropagation()
   }
 
-  let productImage = products[index]
+  
 
   const handleProductClick = (id) => {
     setIndex(id)
   }
 
   const value = {
-    tooltipToggle,
     index,
-    products,
-    productImage,
-    isModalOpen,
     handlePrevClick,
     handleNextClick,
-    setIsModalOpen,
     handleProductClick,
   }
   return (

@@ -62,7 +62,7 @@ const Navigation = () => {
             </NavLink>
           )}
         </div>
-        {toggle.isDropdownOpen && <CartDropdown />}
+        {toggle.isCartDropdownOpen && <CartDropdown />}
       </nav>
       <div
         className={toggle.isMobileMenuOpen ? 'overlay' : undefined}

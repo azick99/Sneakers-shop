@@ -9,7 +9,7 @@ const CartIcon = () => {
 
   return (
     <div className="cart-icon">
-      {!toggle.isDropdownOpen ? (
+      {!toggle.isCartDropdownOpen ? (
         <img src={ShoppingIcon} onClick={isCartOpen} alt="shopping-icon" />
       ) : (
         <img src={ShoppingIconDark} onClick={isCartOpen} alt="shopping-icon" />
