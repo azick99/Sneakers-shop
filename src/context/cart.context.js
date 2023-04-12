@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useReducer, useState } from 'react'
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
   //find the cart item to remove
@@ -69,8 +69,18 @@ const addHomeCartItem = (cartItems, productQuantity, productToAdd) => {
   }
   return [
     ...cartItems,
-    { ...productToAdd, quantity: productQuantity, total: productToAdd.price },
+    {
+      ...productToAdd,
+      quantity: productQuantity,
+      total: productToAdd.price * productQuantity,
+    },
   ]
+}
+
+const CART_ACTION_TYPES = {
+  SET_CART_ITEMS: 'SET_CART_ITEMS',
+  INCREMENT_HOME_COUNTER: 'INCREMENT_HOME_COUNTER',
+  DECREMENT_HOME_COUNTER: 'DECREMENT_HOME_COUNTER',
 }
 
 export const CartContext = createContext({
@@ -85,46 +95,103 @@ export const CartContext = createContext({
   handleHeroAddToCart: () => {},
 })
 
-export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([])
-  const [cartCount, setCartCount] = useState(0)
-  const [total, setTotal] = useState(0)
-  const [productQuantity, setProductQuantity] = useState(0)
+const INITAL_STATE = {
+  cartItems: [],
+  cartCount: 0,
+  total: 0,
+  productQuantity: 0,
+}
 
-  useEffect(() => {
-    const newCartCount = cartItems.reduce(
+const cartReducer = (state, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case CART_ACTION_TYPES.SET_CART_ITEMS: {
+      return { ...state, ...payload }
+    }
+    case CART_ACTION_TYPES.INCREMENT_HOME_COUNTER: {
+      return { ...state, productQuantity: payload + 1 }
+    }
+    case CART_ACTION_TYPES.DECREMENT_HOME_COUNTER: {
+      return { ...state, productQuantity: payload - 1 }
+    }
+
+    default: {
+      throw new Error(`unhandled type of ${type} in cartReducer`)
+    }
+  }
+}
+
+export const CartProvider = ({ children }) => {
+  const [{ cartItems, cartCount, total, productQuantity }, dispatch] =
+    useReducer(cartReducer, INITAL_STATE)
+
+  const updateCartItemsReducer = (newCartItems) => {
+    const newCartCount = newCartItems.reduce(
       (total, cartItem) => total + cartItem.quantity,
       0
     )
-    setCartCount(newCartCount)
-  }, [cartItems])
 
-  useEffect(() => {
-    const newCartTotal = cartItems.reduce(
+    const newCartTotal = newCartItems.reduce(
       (total, cartItem) => total + cartItem.quantity * cartItem.price,
       0
     )
-    setTotal(newCartTotal)
-  }, [cartItems])
 
-  const handleAddToCart = (productToAdd) =>
-    setCartItems(addCartItem(cartItems, productToAdd))
+    dispatch({
+      type: CART_ACTION_TYPES.SET_CART_ITEMS,
+      payload: {
+        cartItems: newCartItems,
+        total: newCartTotal,
+        cartCount: newCartCount,
+      },
+    })
+  }
 
-  const handleRemoveFromCart = (cartItemToRemove) =>
-    setCartItems(removeCartItem(cartItems, cartItemToRemove))
+  const handleAddToCart = (productToAdd) => {
+    const newCartItems = addCartItem(cartItems, productToAdd)
+    updateCartItemsReducer(newCartItems)
+  }
 
-  const handleDeleteFromCart = (selectedId) =>
-    setCartItems(cartItems.filter((cartItem) => cartItem.id !== selectedId))
+  const handleRemoveFromCart = (cartItemToRemove) => {
+    const newCartItems = removeCartItem(cartItems, cartItemToRemove)
+    updateCartItemsReducer(newCartItems)
+  }
 
-  const handleHeroAddToCart = (productToAdd) =>
-    setCartItems(addHomeCartItem(cartItems, productQuantity, productToAdd))
+  const handleDeleteFromCart = (selectedId) => {
+    const newCartItems = cartItems.filter(
+      (cartItem) => cartItem.id !== selectedId
+    )
+    updateCartItemsReducer(newCartItems)
+  }
+
+  const handleHeroAddToCart = (productToAdd) => {
+    const newCartItems = addHomeCartItem(
+      cartItems,
+      productQuantity,
+      productToAdd
+    )
+    updateCartItemsReducer(newCartItems)
+  }
+
+  const incrementHomeCounter = () => {
+    dispatch({
+      type: CART_ACTION_TYPES.INCREMENT_HOME_COUNTER,
+      payload: productQuantity,
+    })
+  }
+  const decrementHomeCounter = () => {
+    dispatch({
+      type: CART_ACTION_TYPES.DECREMENT_HOME_COUNTER,
+      payload: productQuantity,
+    })
+  }
 
   const value = {
     cartCount,
     cartItems,
     total,
     productQuantity,
-    setProductQuantity,
+    incrementHomeCounter,
+    decrementHomeCounter,
     handleAddToCart,
     handleRemoveFromCart,
     handleDeleteFromCart,

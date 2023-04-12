@@ -19,11 +19,13 @@ const HeroItem = {
 
 function HomePage() {
   const { toggle, handleImageModalClose } = useContext(NavigationContext)
-  const { productQuantity, handleHeroAddToCart, setProductQuantity } =
-    useContext(CartContext)
+  const {
+    productQuantity,
+    handleHeroAddToCart,
+    incrementHomeCounter,
+    decrementHomeCounter,
+  } = useContext(CartContext)
 
-  const addToCart = () => setProductQuantity(productQuantity + 1)
-  const removeFromCart = () => setProductQuantity(productQuantity - 1)
   return (
     <>
       {toggle.isImageModalOpen && (
@@ -59,8 +61,8 @@ function HomePage() {
             <div className="add-container flex">
               <Counter
                 quantity={productQuantity}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
+                addToCart={incrementHomeCounter}
+                removeFromCart={decrementHomeCounter}
               />
 
               <Button onClick={() => handleHeroAddToCart(HeroItem)}>
