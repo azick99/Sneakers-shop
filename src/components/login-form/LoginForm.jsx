@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { NavigationContext } from '../../context/navigation.context'
 import { useContext, useState } from 'react'
 import {
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from '../../utils/firebase/firebase.utils'

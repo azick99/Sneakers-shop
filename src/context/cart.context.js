@@ -1,4 +1,5 @@
-import { createContext, useEffect, useReducer, useState } from 'react'
+import { createContext, useReducer } from 'react'
+import { createActon } from '../utils/reducer/reducer.utils'
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
   //find the cart item to remove
@@ -136,14 +137,13 @@ export const CartProvider = ({ children }) => {
       0
     )
 
-    dispatch({
-      type: CART_ACTION_TYPES.SET_CART_ITEMS,
-      payload: {
+    dispatch(
+      createActon(CART_ACTION_TYPES.SET_CART_ITEMS, {
         cartItems: newCartItems,
         total: newCartTotal,
         cartCount: newCartCount,
-      },
-    })
+      })
+    )
   }
 
   const handleAddToCart = (productToAdd) => {
@@ -172,18 +172,15 @@ export const CartProvider = ({ children }) => {
     updateCartItemsReducer(newCartItems)
   }
 
-  const incrementHomeCounter = () => {
-    dispatch({
-      type: CART_ACTION_TYPES.INCREMENT_HOME_COUNTER,
-      payload: productQuantity,
-    })
-  }
-  const decrementHomeCounter = () => {
-    dispatch({
-      type: CART_ACTION_TYPES.DECREMENT_HOME_COUNTER,
-      payload: productQuantity,
-    })
-  }
+  const incrementHomeCounter = () =>
+    dispatch(
+      createActon(CART_ACTION_TYPES.INCREMENT_HOME_COUNTER, productQuantity)
+    )
+
+  const decrementHomeCounter = () =>
+    dispatch(
+      createActon(CART_ACTION_TYPES.DECREMENT_HOME_COUNTER, productQuantity)
+    )
 
   const value = {
     cartCount,

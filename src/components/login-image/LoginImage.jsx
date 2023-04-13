@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { logOutUser } from '../../utils/firebase/firebase.utils'
 import './login-image.style.scss'
 
-const LoginImage = ({ currentUser}) => {
+const LoginImage = ({ currentUser }) => {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false)
   const logOutHandler = async () => {
     await logOutUser()

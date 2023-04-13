@@ -3,6 +3,7 @@ import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
 } from '../utils/firebase/firebase.utils'
+import { createActon } from '../utils/reducer/reducer.utils'
 
 export const NavigationContext = createContext({
   toggle: {},
@@ -43,6 +44,7 @@ const userReducer = (state, action) => {
 
 const toggleReducer = (toggle, action) => {
   const { type, payload } = action
+  console.log(payload)
   switch (type) {
     case TOGGLE_ACTION_TYPES.MOBILE_MENU_TOGGLE: {
       return { ...toggle, isMobileMenuOpen: !payload }
@@ -51,10 +53,10 @@ const toggleReducer = (toggle, action) => {
       return { ...toggle, isCartDropdownOpen: !payload }
     }
     case TOGGLE_ACTION_TYPES.LOGIN_OPEN: {
-      return { ...toggle, isLoginOpen: true }
+      return { ...toggle, isLoginDropdownOpen: true }
     }
     case TOGGLE_ACTION_TYPES.LOGIN_CLOSE: {
-      return { ...toggle, isLoginClose: false }
+      return { ...toggle, isLoginDropdownOpen: false }
     }
     case TOGGLE_ACTION_TYPES.IMAGE_MODAL_OPEN: {
       return { ...toggle, isImageModalOpen: true }
@@ -76,7 +78,7 @@ const INITAL_STATE = { currentUser: null }
 const TOGGLE_INITAL_STATE = {
   isCartDropdownOpen: false,
   isMobileMenuOpen: false,
-  isLoginDropdowOpen: true,
+  isLoginDropdownOpen: true,
   isImageModalOpen: false,
 }
 
@@ -85,55 +87,50 @@ export const NavigationProvider = ({ children }) => {
     toggleReducer,
     TOGGLE_INITAL_STATE
   )
+
   const {
     isCartDropdownOpen,
     isMobileMenuOpen,
-    isLoginDropdowOpen,
+    isLoginDropdownOpen,
     isImageModalOpen,
   } = toggle
 
   const [{ currentUser }, dispatch] = useReducer(userReducer, INITAL_STATE)
 
-  const setCurrentUser = (user) => {
-    dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
-  }
-
   // Dropdown Handlers
   const handleMobileMenu = () =>
-    toggleDispatch({
-      type: TOGGLE_ACTION_TYPES.MOBILE_MENU_TOGGLE,
-      payload: isMobileMenuOpen,
-    })
+    toggleDispatch(
+      createActon(TOGGLE_ACTION_TYPES.MOBILE_MENU_TOGGLE, isMobileMenuOpen)
+    )
 
   const isCartOpen = () =>
-    toggleDispatch({
-      type: TOGGLE_ACTION_TYPES.CART_DROPDOWN_TOGGLE,
-      payload: isCartDropdownOpen,
-    })
+    toggleDispatch(
+      createActon(TOGGLE_ACTION_TYPES.CART_DROPDOWN_TOGGLE, isCartDropdownOpen)
+    )
 
   const isLoginOpen = () =>
-    toggleDispatch({
-      type: TOGGLE_ACTION_TYPES.LOGIN_OPEN,
-      payload: isLoginDropdowOpen,
-    })
+    toggleDispatch(
+      createActon(TOGGLE_ACTION_TYPES.LOGIN_OPEN, isLoginDropdownOpen)
+    )
+
   const isLoginClose = () =>
-    toggleDispatch({
-      type: TOGGLE_ACTION_TYPES.LOGIN_CLOSE,
-      payload: isLoginDropdowOpen,
-    })
+    toggleDispatch(
+      createActon(TOGGLE_ACTION_TYPES.LOGIN_CLOSE, isLoginDropdownOpen)
+    )
 
   const handleImageModalOpen = () =>
-    toggleDispatch({
-      type: TOGGLE_ACTION_TYPES.IMAGE_MODAL_OPEN,
-      payload: isImageModalOpen,
-    })
+    toggleDispatch(
+      createActon(TOGGLE_ACTION_TYPES.IMAGE_MODAL_OPEN, isImageModalOpen)
+    )
 
   const handleImageModalClose = () =>
-    toggleDispatch({
-      type: TOGGLE_ACTION_TYPES.IMAGE_MODAL_CLOSE,
-      payload: isImageModalOpen,
-    })
+    toggleDispatch(
+      createActon(TOGGLE_ACTION_TYPES.IMAGE_MODAL_CLOSE, isImageModalOpen)
+    )
   // Auth Handlers
+
+  const setCurrentUser = (user) =>
+    dispatch(createActon(USER_ACTION_TYPES.SET_CURRENT_USER, user))
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {

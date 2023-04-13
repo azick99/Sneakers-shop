@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import './navigation.style.scss'
 import { ReactComponent as SneakersLogo } from '../../assets/images/logo.svg'
 import avatar from '../../assets/images/image-avatar.png'
 import close from '../../assets/images/icon-close.svg'
@@ -10,6 +9,7 @@ import CartIcon from '../../components/cart-icon/CartIcon'
 import { NavigationContext } from '../../context/navigation.context'
 import LoginImage from '../../components/login-image/LoginImage'
 import { CartContext } from '../../context/cart.context'
+import './navigation.style.scss'
 
 const MobileMenu = ({ isMobileMenuOpen }) => {
   let mobileMenuClass = ' mobile-menu flex slide-left'
@@ -58,7 +58,7 @@ const Navigation = () => {
             <LoginImage currentUser={currentUser} />
           ) : (
             <NavLink to="/auth">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar} alt="avatar" className='avatar'/>
             </NavLink>
           )}
         </div>

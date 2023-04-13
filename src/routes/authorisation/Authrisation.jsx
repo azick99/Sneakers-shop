@@ -10,12 +10,12 @@ const Authrisation = () => {
 
   return (
     <div className="auth-wrapper container flex slide-left">
-      {!toggle.isLoginOpen && (
+      {!toggle.isLoginDropdownOpen && (
         <span className="form-close-icon" onClick={isLoginOpen}>
           <CloseIcon />
         </span>
       )}
-      {toggle.isLoginOpen ? <LoginForm /> : <RegisterForm />}
+      {toggle.isLoginDropdownOpen ? <LoginForm /> : <RegisterForm />}
     </div>
   )
 }

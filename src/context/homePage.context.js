@@ -15,19 +15,22 @@ export const HomePageProvider = ({ children }) => {
   const hasNext = index < products.length - 1
 
   const handlePrevClick = (e) => {
+ 
     if (hasPrev) {
       setIndex(index - 1)
     }
     e.stopPropagation()
   }
+
   const handleNextClick = (e) => {
+    if (index === 4) {
+      setIndex(0)
+    }
     if (hasNext) {
       setIndex(index + 1)
     }
     e.stopPropagation()
   }
-
-  
 
   const handleProductClick = (id) => {
     setIndex(id)
