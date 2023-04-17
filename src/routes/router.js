@@ -8,6 +8,7 @@ import Contact from './contact/Contact'
 import ErrorPage from './ErrorPage'
 import HomePage from './home/HomePage'
 import Navigation from './navigation/Navigation'
+import { HomePageProvider } from '../context/homePage.context'
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +18,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <HomePage />,
+        element: (
+          <HomePageProvider>
+            <HomePage />
+          </HomePageProvider>
+        ),
       },
       {
         path: '/collections',

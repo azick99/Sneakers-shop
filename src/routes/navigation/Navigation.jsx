@@ -10,6 +10,9 @@ import { NavigationContext } from '../../context/navigation.context'
 import LoginImage from '../../components/login-image/LoginImage'
 import { CartContext } from '../../context/cart.context'
 import './navigation.style.scss'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '../../store/user/user.selector'
+import { selectIsCartOpen } from '../../store/toggles/toggle.selector'
 
 const MobileMenu = ({ isMobileMenuOpen }) => {
   let mobileMenuClass = ' mobile-menu flex slide-left'
@@ -28,8 +31,9 @@ const MobileMenu = ({ isMobileMenuOpen }) => {
 }
 
 const Navigation = () => {
-  const { handleMobileMenu, toggle, currentUser } =
-    useContext(NavigationContext)
+  const { handleMobileMenu, toggle } = useContext(NavigationContext)
+  const isCartDropdownOpen = useSelector(selectIsCartOpen)
+  const currentUser = useSelector(selectCurrentUser)
   const { cartCount } = useContext(CartContext)
 
   return (
@@ -53,16 +57,16 @@ const Navigation = () => {
               {cartCount}
             </span>
           )}
-          <CartIcon toggle={toggle} />
+          <CartIcon toggle={isCartDropdownOpen} />
           {currentUser ? (
             <LoginImage currentUser={currentUser} />
           ) : (
             <NavLink to="/auth">
-              <img src={avatar} alt="avatar" className='avatar'/>
+              <img src={avatar} alt="avatar" className="avatar" />
             </NavLink>
           )}
         </div>
-        {toggle.isCartDropdownOpen && <CartDropdown />}
+        {isCartDropdownOpen && <CartDropdown />}
       </nav>
       <div
         className={toggle.isMobileMenuOpen ? 'overlay' : undefined}

@@ -1,11 +1,11 @@
-import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import ProductCard from '../../components/product-card/ProductCard'
-import { CategoriesContext } from '../../context/categories.context'
+import { useSelector } from 'react-redux'
+import { selectCategories } from '../../store/categories/category.selector'
 
 const Categories = () => {
   const { title } = useParams()
-  const { categories } = useContext(CategoriesContext)
+  const  categories  = useSelector(selectCategories)
   const category = Object.keys(categories).find((t) => t === title)
   return (
     <div className="slide-left container">

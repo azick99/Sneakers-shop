@@ -4,12 +4,11 @@ import ShoppingIconDark from '../../assets/images/icon-cart copy.svg'
 import { NavigationContext } from '../../context/navigation.context'
 import './cart-icon.style.scss'
 
-const CartIcon = () => {
-  const { isCartOpen, toggle } = useContext(NavigationContext)
-
+const CartIcon = (toggle) => {
+  const { isCartOpen } = useContext(NavigationContext)
   return (
     <div className="cart-icon">
-      {!toggle.isCartDropdownOpen ? (
+      {!toggle ? (
         <img src={ShoppingIcon} onClick={isCartOpen} alt="shopping-icon" />
       ) : (
         <img src={ShoppingIconDark} onClick={isCartOpen} alt="shopping-icon" />

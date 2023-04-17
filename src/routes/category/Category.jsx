@@ -1,12 +1,13 @@
-import { useContext, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ProductCard from '../../components/product-card/ProductCard'
-import { CategoriesContext } from '../../context/categories.context'
 import './category.syle.scss'
+import { useSelector } from 'react-redux'
+import { selectCategories } from '../../store/categories/category.selector'
 
 const Category = () => {
   const { title } = useParams()
-  const { categories } = useContext(CategoriesContext)
+  const  categories  = useSelector(selectCategories)
   const [products, setProducts] = useState(categories[title])
   const navigate = useNavigate()
   const navigateCollectionsHandler = () => navigate('/collections')
