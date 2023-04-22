@@ -10,8 +10,8 @@ import LoginImage from '../../components/login-image/LoginImage'
 import './navigation.style.scss'
 import { useSelector } from 'react-redux'
 import { selectCurrentUser } from '../../store/user/user.selector'
-import { selectCartCount } from '../../store/cart/cart.selector'
 import { ToggleContext } from '../../context/toggle.context'
+import { CartContext } from '../../context/cart.context'
 
 const MobileMenu = ({ isMobileMenuOpen }) => {
   let mobileMenuClass = ' mobile-menu flex slide-left'
@@ -33,8 +33,7 @@ const Navigation = () => {
   const { toggle, handleMobileMenu, isCartDropdownOpen } =
     useContext(ToggleContext)
   const currentUser = useSelector(selectCurrentUser)
-  const cartCount = useSelector(selectCartCount)
-
+  const { cartCount } = useContext(CartContext)
   return (
     <>
       <nav className="navigation flex container">
