@@ -8,7 +8,7 @@ import SwipeButton from '../../components/swipe-btn/SwipeButton'
 import Counter from '../../components/counter/Counter'
 import { CartContext } from '../../context/cart.context'
 import heroImg from '../../assets/images/image-product-1.jpg'
-import { NavigationContext } from '../../context/navigation.context'
+import { ToggleContext } from '../../context/toggle.context'
 
 const HeroItem = {
   id: 0,
@@ -18,7 +18,7 @@ const HeroItem = {
 }
 
 function HomePage() {
-  const { toggle, handleImageModalClose } = useContext(NavigationContext)
+  const { toggle, handleImageModalClose } = useContext(ToggleContext)
   const {
     productQuantity,
     handleHeroAddToCart,

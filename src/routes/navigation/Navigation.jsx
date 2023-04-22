@@ -6,13 +6,12 @@ import close from '../../assets/images/icon-close.svg'
 import hamburger from '../../assets/images/icon-menu.svg'
 import CartDropdown from '../../components/cart-dropdown/CartDropdown'
 import CartIcon from '../../components/cart-icon/CartIcon'
-import { NavigationContext } from '../../context/navigation.context'
 import LoginImage from '../../components/login-image/LoginImage'
-import { CartContext } from '../../context/cart.context'
 import './navigation.style.scss'
 import { useSelector } from 'react-redux'
 import { selectCurrentUser } from '../../store/user/user.selector'
-import { selectIsCartOpen } from '../../store/toggles/toggle.selector'
+import { selectCartCount } from '../../store/cart/cart.selector'
+import { ToggleContext } from '../../context/toggle.context'
 
 const MobileMenu = ({ isMobileMenuOpen }) => {
   let mobileMenuClass = ' mobile-menu flex slide-left'
@@ -31,10 +30,10 @@ const MobileMenu = ({ isMobileMenuOpen }) => {
 }
 
 const Navigation = () => {
-  const { handleMobileMenu, toggle } = useContext(NavigationContext)
-  const isCartDropdownOpen = useSelector(selectIsCartOpen)
+  const { toggle, handleMobileMenu, isCartDropdownOpen } =
+    useContext(ToggleContext)
   const currentUser = useSelector(selectCurrentUser)
-  const { cartCount } = useContext(CartContext)
+  const cartCount = useSelector(selectCartCount)
 
   return (
     <>

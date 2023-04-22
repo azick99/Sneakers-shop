@@ -2,13 +2,13 @@ import './login-form.style.scss'
 import EmailIcon from '../../assets/images/mail.svg'
 import LockIcon from '../../assets/images/lock-closed.svg'
 import { Link } from 'react-router-dom'
-import { NavigationContext } from '../../context/navigation.context'
 import { useContext, useState } from 'react'
 import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from '../../utils/firebase/firebase.utils'
 import FormInput from '../form-input/FormInput'
+import { ToggleContext } from '../../context/toggle.context'
 
 const defaultFormFields = {
   email: '',
@@ -16,7 +16,7 @@ const defaultFormFields = {
 }
 
 const LoginForm = () => {
-  const { isLoginClose } = useContext(NavigationContext)
+  const { isLoginClose } = useContext(ToggleContext)
 
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields

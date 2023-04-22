@@ -2,13 +2,13 @@ import EmailIcon from '../../assets/images/mail.svg'
 import PersonIcon from '../../assets/images/person-sharp.svg'
 import LockIcon from '../../assets/images/lock-closed.svg'
 import { Link } from 'react-router-dom'
-import { NavigationContext } from '../../context/navigation.context'
 import { useContext, useState } from 'react'
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils'
 import FormInput from '../form-input/FormInput'
+import { ToggleContext } from '../../context/toggle.context'
 
 const defaultFormFields = {
   userName: '',
@@ -18,7 +18,7 @@ const defaultFormFields = {
 }
 
 const RegisterForm = () => {
-  const { isLoginOpen } = useContext(NavigationContext)
+  const { isLoginOpen } = useContext(ToggleContext)
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { userName, email, password, confirmPassword } = formFields
   const resetFormField = () => {

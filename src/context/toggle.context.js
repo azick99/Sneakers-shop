@@ -2,7 +2,7 @@ import { createContext, useReducer } from 'react'
 
 import { createActon } from '../utils/reducer/reducer.utils'
 
-export const NavigationContext = createContext({
+export const ToggleContext = createContext({
   toggle: {},
   setToggle: () => {},
   handleMobileMenu: () => {},
@@ -17,6 +17,7 @@ export const TOGGLE_ACTION_TYPES = {
 
 const toggleReducer = (toggle, action) => {
   const { type, payload } = action
+  console.log(payload)
   switch (type) {
     case TOGGLE_ACTION_TYPES.TOGGLES: {
       return { ...toggle, ...payload }
@@ -34,7 +35,7 @@ const TOGGLE_INITAL_STATE = {
   isImageModalOpen: false,
 }
 
-export const NavigationProvider = ({ children }) => {
+export const ToggleProvider = ({ children }) => {
   const [toggle, dispatch] = useReducer(toggleReducer, TOGGLE_INITAL_STATE)
 
   const { isCartDropdownOpen, isMobileMenuOpen } = toggle
@@ -93,6 +94,8 @@ export const NavigationProvider = ({ children }) => {
 
   const value = {
     toggle,
+    isCartDropdownOpen,
+    isMobileMenuOpen,
     isLoginClose,
     isLoginOpen,
     handleMobileMenu,
@@ -102,8 +105,6 @@ export const NavigationProvider = ({ children }) => {
   }
 
   return (
-    <NavigationContext.Provider value={value}>
-      {children}
-    </NavigationContext.Provider>
+    <ToggleContext.Provider value={value}>{children}</ToggleContext.Provider>
   )
 }

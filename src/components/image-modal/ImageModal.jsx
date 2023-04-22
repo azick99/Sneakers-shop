@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 import { HomePageContext } from '../../context/homePage.context'
-import { NavigationContext } from '../../context/navigation.context'
 import { products } from '../../data/imageData'
 import SwipeButton from '../swipe-btn/SwipeButton'
 
 import './image-modal.scss'
+import { ToggleContext } from '../../context/toggle.context'
 const ImageModal = ({ modalMode }) => {
   const { handleProductClick, index } = useContext(HomePageContext)
-  const { handleImageModalOpen } = useContext(NavigationContext)
+  const { handleImageModalOpen } = useContext(ToggleContext)
   
   let productImage = products[index]
   let modalClass = 'image-container grid ' + modalMode
