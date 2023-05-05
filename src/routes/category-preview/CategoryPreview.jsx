@@ -9,7 +9,7 @@ const CategoryPreview = ({ title, products }) => {
   }
   return (
     <div className="category-preview-container container">
-      <h2 className="title" onClick={navigateHanlder}>
+      <h2  onClick={navigateHanlder}>
         {title.toUpperCase()}
       </h2>
       <div className="preview">

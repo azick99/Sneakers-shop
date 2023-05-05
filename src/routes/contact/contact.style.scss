@@ -1,0 +1,15 @@
+.contact {
+    .input-box {
+        &:last-child {
+            height: 80px;
+        }
+
+        svg,
+        img {
+            max-width: 2.8%;
+        }
+    }
+    button{
+        padding: .5rem 1rem;
+    }
+}

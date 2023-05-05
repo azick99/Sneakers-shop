@@ -42,7 +42,7 @@ function HomePage() {
           <div className="mobile-container flow">
             <h1 className="text-orange fs-400  text-bold">
               SNEAKER COMPANY
-              <span className="title fs-700 text-dark text-bold d-block ">
+              <span className=" fs-700 text-dark text-bold d-block ">
                 Fall Limited Edition Sneakers
               </span>
             </h1>

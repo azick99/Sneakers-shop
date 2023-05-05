@@ -13,7 +13,7 @@ const CartDropdown = () => {
   }
   return (
     <div className="cart-dropdown-container scale-up-top">
-      <div className="title text-dark text-bold fs-400">Cart</div>
+      <h2 className="text-dark text-bold fs-400">Cart</h2>
       <div className="cart-content grid ">
         {!cartItems.length ? (
           <p className="empty-mesage">Cart is empty</p>
