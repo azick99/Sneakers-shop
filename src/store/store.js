@@ -21,7 +21,6 @@ import logger from 'redux-logger'
 //     console.log('next state: ', store.getState())
 // }
 
-
 const middleWares = [logger]
 
 const composedEnhancers = compose(applyMiddleware(...middleWares))
