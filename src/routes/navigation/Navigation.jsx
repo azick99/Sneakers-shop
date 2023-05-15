@@ -34,6 +34,8 @@ const Navigation = () => {
     useContext(ToggleContext)
   const currentUser = useSelector(selectCurrentUser)
   const { cartCount } = useContext(CartContext)
+
+  console.log(currentUser)
   return (
     <>
       <nav className="navigation flex container">
@@ -57,7 +59,7 @@ const Navigation = () => {
           )}
           <CartIcon toggle={isCartDropdownOpen} />
           {currentUser ? (
-            <LoginImage currentUser={currentUser} />
+            <LoginImage LoginPicture={currentUser.photoURL} />
           ) : (
             <NavLink to="/auth">
               <img src={avatar} alt="avatar" className="avatar" />

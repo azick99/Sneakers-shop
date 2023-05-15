@@ -17,7 +17,6 @@ export const TOGGLE_ACTION_TYPES = {
 
 const toggleReducer = (toggle, action) => {
   const { type, payload } = action
-  console.log(payload)
   switch (type) {
     case TOGGLE_ACTION_TYPES.TOGGLES: {
       return { ...toggle, ...payload }

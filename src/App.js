@@ -37,7 +37,7 @@ const App = () => {
   return (
     <CartProvider>
       <ToggleProvider>
-        <RouterProvider router={router} />
+          <RouterProvider router={router} />
       </ToggleProvider>
     </CartProvider>
   )
